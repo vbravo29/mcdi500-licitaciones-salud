@@ -86,7 +86,7 @@ def tabla(doc, leyenda, encabezados, filas):
 def construir():
     shutil.copyfile(PLANTILLA, SALIDA)
     doc = Document(SALIDA); limpiar_cuerpo(doc); p = doc.paragraphs
-    portada = {1:"MCDIA500 • PROGRAMACIÓN PARA LA CIENCIA DE DATOS",2:"MAGÍSTER EN CIENCIA DE DATOS E INTELIGENCIA ARTIFICIAL",3:"UNIVERSIDAD ANDRÉS BELLO",5:"Análisis de ofertas en licitaciones públicas del sector Salud",6:"Sumativa 2  Avance del proyecto Fase 3",7:"Núcleo algorítmico eficiencia y aplicación de principios de POO",9:"Grupo 5",10:"Víctor Bravo Barrera",11:"Nayadeth Garrido Ibáñez",12:"Mauricio Cid",14:"Docente  Omar Salinas Silva",15:"Fecha  27 de septiembre de 2026"}
+    portada = {1:"MCDI500 • PROGRAMACIÓN PARA LA CIENCIA DE DATOS",2:"MAGÍSTER EN CIENCIA DE DATOS E INTELIGENCIA ARTIFICIAL",3:"UNIVERSIDAD ANDRÉS BELLO",5:"Análisis de ofertas en licitaciones públicas del sector Salud",6:"Sumativa 2  Avance del proyecto Fase 3",7:"Núcleo algorítmico eficiencia y aplicación de principios de POO",9:"Grupo 5",10:"Víctor Bravo Barrera",11:"Nayadeth Garrido Ibáñez",12:"Mauricio Cid",14:"Docente  Omar Salinas Silva",15:"Fecha  27 de septiembre de 2026"}
     for i, texto in portada.items():
         reemplazar(p[i], texto)
 
