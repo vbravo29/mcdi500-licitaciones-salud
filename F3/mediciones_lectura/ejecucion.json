@@ -1,0 +1,10 @@
+{
+  "fecha_utc": "2026-09-27T18:08:38.911715+00:00",
+  "python": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+  "notebook": "F3/F3_Lectura.ipynb",
+  "notebook_sha256": "4257d0271fa04d2fdfe6cf831a62e5cd62cb51ba72712787f0f23a323c5b678e",
+  "kernel_nuevo": true,
+  "celdas_codigo_ejecutadas": 9,
+  "errores": 0,
+  "alcance": "Aporte de lectura: tres opciones de LectorCSV, equivalencia de datos limpios y proporciones, mediciones con hashes verificados."
+}
