@@ -1,4 +1,6 @@
 """Coordinación de limpieza y estado de la última ejecución."""
+import pandas as pd
+
 from .preprocesamiento import (
     excluir_columnas_vacias,
     normalizar_categorias,
@@ -33,8 +35,12 @@ class LimpiadorLicitaciones:
     )
 
     def __init__(self, excluir_vacias=True, normalizar_texto=True):
-        self._excluir_vacias = bool(excluir_vacias)
-        self._normalizar_texto = bool(normalizar_texto)
+        if not isinstance(excluir_vacias, bool):
+            raise TypeError("excluir_vacias debe ser un valor booleano.")
+        if not isinstance(normalizar_texto, bool):
+            raise TypeError("normalizar_texto debe ser un valor booleano.")
+        self._excluir_vacias = excluir_vacias
+        self._normalizar_texto = normalizar_texto
         self._ultima_ejecucion = None
 
     @property
@@ -44,6 +50,8 @@ class LimpiadorLicitaciones:
 
     def limpiar(self, df):
         """Aplica las transformaciones de F2 en un orden explícito y trazable."""
+        if not isinstance(df, pd.DataFrame):
+            raise TypeError("df debe ser un DataFrame de pandas.")
         if df.empty:
             raise ValueError("No es posible preprocesar un DataFrame vacío.")
         faltantes = [c for c in self.COLUMNAS_CLAVE if c not in df.columns]

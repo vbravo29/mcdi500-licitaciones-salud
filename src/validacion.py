@@ -144,7 +144,14 @@ class ValidadorDatasetProcesado:
             ReglaFechas(),
             ReglaVariablesDerivadas(),
         )
-        self._reglas = tuple(reglas or reglas_predeterminadas)
+        try:
+            self._reglas = tuple(
+                reglas_predeterminadas if reglas is None else reglas
+            )
+        except TypeError as error:
+            raise TypeError(
+                "reglas debe ser una colección de reglas de validación."
+            ) from error
         if not self._reglas:
             raise ValueError("El validador requiere al menos una regla.")
         if not all(isinstance(regla, ReglaValidacion) for regla in self._reglas):
@@ -155,6 +162,8 @@ class ValidadorDatasetProcesado:
         return self._reglas
 
     def validar(self, df, filas_esperadas):
+        if not isinstance(df, pd.DataFrame):
+            raise TypeError("df debe ser un DataFrame de pandas.")
         if df.empty:
             raise AssertionError(
                 "Validación fallida: el DataFrame procesado está vacío."
