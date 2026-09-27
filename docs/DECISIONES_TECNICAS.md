@@ -114,3 +114,13 @@ Se revisó el notebook frente al documento técnico. Aunque contenía evidencia 
 Se reorganizó `F3/F3_Algoritmos.ipynb` en 24 celdas de código con objetivos diferenciados: entorno, presentación, lectura, limpieza, calidad, ejemplo manual, recursividad, pruebas, casos límite, equivalencia, resultados por variable, evidencia de medición, tiempos, memoria y decisión final. Cada celda de salida contiene como máximo una tabla; esto se comprobó sobre el notebook ejecutado. Es una convención de legibilidad y separación de responsabilidades, no un requisito de convertir cada instrucción en una celda.
 
 Las decisiones, el efecto del bloque base, los costos de preparación, las diferencias pequeñas de tiempos, la interpretación de memoria y las limitaciones quedaron explicados junto a sus resultados. El informe resume estos antecedentes. Se ejecutaron las 24 celdas sin errores y las 14 pruebas continuaron aprobadas. No se modificaron los algoritmos, las mediciones guardadas ni los módulos de otros integrantes.
+
+## 8. Rendimiento de la lectura — 27 de septiembre de 2026
+
+| ID | Decisión adoptada | Alternativas descartadas | Motivo |
+| --- | --- | --- | --- |
+| D-33 | Leer para F3 solo las siete columnas necesarias, con tipos `category` en las cuatro categóricas; mantener la lectura completa como comportamiento por defecto de `LectorCSV` | Leer siempre todas las columnas · tipar las fechas al leer · leer `NroLicitacion` como `string` | El flujo de lectura, limpieza y proporciones es unas 2,5 veces más rápido y el DataFrame leído ocupa cerca de un 95 % menos memoria, con datos limpios y proporciones idénticos; las fechas ya se convierten en la limpieza y F1/F2 exploran todas las columnas |
+| D-34 | Calcular las huellas del código con saltos de línea normalizados | Huella por bytes del archivo | Git en Windows convierte los saltos de línea a CRLF y la misma versión tendría otra huella en cada equipo |
+| D-35 | Integrar la comparación de lectura como sección 12 de `F3/F3_Algoritmos.ipynb`, sin cambiar el código de las secciones de algoritmos | Mantener un notebook de lectura separado | Un solo notebook reúne las decisiones de F3; las variables de lectura llevan el sufijo `_lectura` para no reemplazar las de algoritmos |
+
+La comparación verifica la equivalencia antes de medir y reutiliza las funciones de medición de `F3/medir_algoritmos.py`. Las mediciones están en `F3/mediciones_lectura/`. Se comprobó que las 31 celdas de código trasladadas producen salidas idénticas a las de los notebooks anteriores, que se eliminaron junto con `F3/verificar_lectura.py`. El registro de ejecución del notebook se actualizará al ejecutar `F3/verificar_algoritmos.py`.

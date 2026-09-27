@@ -94,7 +94,7 @@ Las reglas y sus justificaciones se encuentran en el notebook F2 y en [DECISIONE
 | `src/pipeline.py` | Coordinación de la limpieza mediante `LimpiadorLicitaciones`. |
 | `src/validacion.py` | Validación del dataset mediante reglas y comprobación de indicadores. |
 | `src/analisis.py` | Exploración, frecuencias y algoritmos de cálculo de proporciones. |
-| `src/entorno.py` | Consulta de versiones de dependencias. |
+| `src/entorno.py` | Consulta de versiones de dependencias y datos del equipo para las mediciones. |
 | `src/ejecucion.py` | Ejecución de notebooks y registro de evidencias. |
 
 `src/proyecto.py` mantiene las importaciones utilizadas por F1 y F2. Las alternativas de cálculo de F3 se importan directamente desde `src/analisis.py`.
@@ -104,6 +104,8 @@ Las reglas y sus justificaciones se encuentran en el notebook F2 y en [DECISIONE
 El [notebook F3](F3/F3_Algoritmos.ipynb) compara la referencia de F2 con versiones iterativa, recursiva y agrupada del cálculo de proporciones. Presenta ejemplos, pruebas de equivalencia, complejidad temporal y espacial, mediciones y conclusiones.
 
 La variante agrupada obtuvo la menor mediana de tiempo para el conjunto completo en las mediciones guardadas. La comparación incluye la preparación interna y la salida del cálculo; excluye la lectura y limpieza del dataset. Los resultados y sus límites se explican en el notebook y en la [sección técnica de algoritmos](docs/F3_APORTE_ALGORITMOS.md).
+
+El mismo notebook compara en su sección 12 tres formas de leer el CSV. Leer solo las columnas necesarias con tipos definidos acelera el flujo de lectura, limpieza y proporciones y reduce la memoria, con los mismos datos y resultados; F1 y F2 mantienen la lectura completa.
 
 ## Documentación
 

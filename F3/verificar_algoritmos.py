@@ -13,6 +13,6 @@ from src.ejecucion import ejecutar_notebook
 if __name__ == "__main__":
     registro = ejecutar_notebook(
         RAIZ, "F3/F3_Algoritmos.ipynb", "evidencias/F3_algoritmos_ejecucion.json",
-        "Aporte de algoritmos: POO existente, oráculo manual, recursividad, 14 pruebas y mediciones con hashes verificados.",
+        "Algoritmos y lectura de F3: POO existente, oráculo manual, recursividad, pruebas, opciones de lectura y mediciones con hashes verificados.",
     )
     print(json.dumps(registro, ensure_ascii=False, indent=2))
