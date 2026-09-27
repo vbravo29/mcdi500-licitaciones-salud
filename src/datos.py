@@ -5,6 +5,22 @@ from pathlib import Path
 import hashlib
 import pandas as pd
 
+# Columnas mínimas para limpiar, validar y calcular proporciones en F3:
+# las categóricas del análisis, la clave exigida por el limpiador y las
+# fechas que exigen las reglas de validación y el plazo derivado.
+COLUMNAS_ANALISIS = (
+    "NroLicitacion", "TipoLicitacion", "TamanoProveedor",
+    "ResultadoOferta", "EstadoLicitacion", "FechaPublicacion", "FechaCierre",
+)
+# Categorías con pocos valores distintos. Las fechas se convierten en la
+# limpieza (formato mixto y exclusión de 1900), no al leer.
+TIPOS_ANALISIS = {
+    "TipoLicitacion": "category",
+    "TamanoProveedor": "category",
+    "ResultadoOferta": "category",
+    "EstadoLicitacion": "category",
+}
+
 
 def sha256_archivo(ruta):
     """Calcula la huella por bloques, sin cargar todo el archivo en memoria."""
@@ -54,20 +70,48 @@ class LectorDatos(ABC):
 
 
 class LectorCSV(LectorDatos):
-    """Lector concreto de CSV con configuración encapsulada."""
+    """Lector concreto de CSV con configuración encapsulada.
 
-    def __init__(self, contrato, sep=";", encoding="latin-1"):
+    ``columnas`` limita la lectura (``usecols``) y ``tipos`` define tipos al leer
+    (``dtype``). Sin ellos se leen todas las columnas, como en F1 y F2.
+    """
+
+    def __init__(self, contrato, sep=";", encoding="latin-1", columnas=None, tipos=None):
         super().__init__(contrato)
+        if columnas is not None:
+            columnas = tuple(columnas)
+            omitidas = sorted(set(contrato.columnas_requeridas) - set(columnas))
+            if omitidas:
+                raise ValueError(
+                    f"Las columnas a leer omiten requeridas del contrato: {', '.join(omitidas)}"
+                )
         self._sep = sep
         self._encoding = encoding
+        self._columnas = columnas
+        self._tipos = dict(tipos) if tipos is not None else None
 
-    def leer(self, ruta):
+    def leer(self, ruta, filas=None):
+        """Lee el archivo completo o sus primeras ``filas`` y valida el contrato."""
         ruta = Path(ruta)
         if not ruta.is_file():
             raise FileNotFoundError(f"No existe un archivo de datos en: {ruta}")
-        datos = pd.read_csv(
-            ruta, sep=self._sep, encoding=self._encoding, low_memory=False
-        )
+        try:
+            datos = pd.read_csv(
+                ruta, sep=self._sep, encoding=self._encoding, low_memory=False,
+                usecols=self._columnas, dtype=self._tipos, nrows=filas,
+            )
+        except ValueError:
+            # pandas rechaza usecols inexistentes antes de aplicar el contrato;
+            # se informa con el mismo mensaje que la lectura completa.
+            if self._columnas is None:
+                raise
+            encabezado = pd.read_csv(
+                ruta, sep=self._sep, encoding=self._encoding, nrows=0
+            ).columns
+            faltantes = sorted(set(self._columnas) - set(encabezado))
+            if not faltantes:
+                raise
+            raise ValueError(f"Faltan columnas requeridas: {', '.join(faltantes)}") from None
         self.contrato.validar(datos)
         return datos
 
