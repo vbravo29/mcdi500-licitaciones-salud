@@ -66,9 +66,9 @@ Se comparan cuatro implementaciones:
 - **Recursiva:** división de registros en bloques y combinación de conteos parciales.
 - **Agrupada:** cálculo mediante una agrupación por categoría y resultado.
 
-Las pruebas comprueban que las alternativas producen los mismos resultados. La comparación de rendimiento utiliza distintos tamaños de entrada e incluye el filtrado, las conversiones, el conteo y la construcción de la tabla. La lectura del CSV y la limpieza se realizan antes de medir.
+Las pruebas comprueban que las alternativas producen los mismos resultados. La comparación de rendimiento utiliza distintos tamaños de entrada e incluye el filtrado, las conversiones, el conteo y la construcción de la tabla. La lectura del CSV, con las siete columnas del análisis, y la limpieza se realizan antes de medir.
 
-En las mediciones guardadas, la variante agrupada obtuvo la menor mediana de tiempo para el dataset completo en ambas variables. Se utiliza en el análisis de F3; la función de F2 conserva su implementación. La interpretación de los tiempos, la complejidad y los límites de la comparación se desarrolla en el notebook.
+En las mediciones guardadas, la variante agrupada obtuvo la menor mediana de tiempo para el dataset completo en ambas variables, unas 1,16 veces más rápida que la referencia F2. Se utiliza en el análisis de F3; la función de F2 conserva su implementación. La interpretación de los tiempos, la complejidad y los límites de la comparación se desarrolla en el notebook.
 
 La memoria se mide por separado con `tracemalloc`. El pico registrado corresponde a las asignaciones rastreadas durante el cálculo, no a la memoria total del proceso.
 
@@ -76,7 +76,7 @@ La memoria se mide por separado con `tracemalloc`. El pico registrado correspond
 
 Se comparan tres configuraciones de `LectorCSV`: la lectura actual de todas las columnas, solo las siete columnas necesarias para limpiar, validar y calcular proporciones, y esas columnas con tipos `category` definidos al leer. Antes de medir se comprueba que los datos limpios, la validación y las proporciones sean idénticos a la lectura actual.
 
-En las mediciones guardadas, leer solo las columnas necesarias con tipos hace unas 2,5 veces más rápido el flujo de lectura, limpieza y proporciones, y reduce cerca de un 95 % la memoria del DataFrame leído. Se recomienda para el análisis de F3; F1 y F2 mantienen la lectura completa, que sigue siendo el comportamiento por defecto.
+En las mediciones guardadas, leer solo las columnas necesarias con tipos hace unas 2,4 veces más rápido el flujo de lectura, limpieza y proporciones, y reduce cerca de un 95 % la memoria del DataFrame leído. El análisis de F3 aplica esta lectura (sección 2.1 del notebook), lo que también reduce el tiempo de los algoritmos; F1 y F2 mantienen la lectura completa, que sigue siendo el comportamiento por defecto.
 
 ## Validación y documentación
 

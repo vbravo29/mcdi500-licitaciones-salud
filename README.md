@@ -106,7 +106,7 @@ El [notebook F3](F3/F3_Algoritmos.ipynb) compara la referencia de F2 con version
 
 La variante agrupada obtuvo la menor mediana de tiempo para el conjunto completo en las mediciones guardadas. La comparación incluye la preparación interna y la salida del cálculo; excluye la lectura y limpieza del dataset. Los resultados y sus límites se explican en el notebook y en la [sección técnica de algoritmos](docs/F3_APORTE_ALGORITMOS.md).
 
-El mismo notebook compara en su sección 12 tres formas de leer el CSV. Leer solo las columnas necesarias con tipos definidos acelera el flujo de lectura, limpieza y proporciones y reduce la memoria, con los mismos datos y resultados; F1 y F2 mantienen la lectura completa.
+El mismo notebook compara en su sección 12 tres formas de leer el CSV. Leer solo las columnas necesarias con tipos definidos acelera el flujo de lectura, limpieza y proporciones y reduce la memoria, con los mismos datos y resultados. El análisis de F3 usa esa lectura; F1 y F2 mantienen la lectura completa.
 
 ## Documentación
 

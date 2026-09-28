@@ -152,3 +152,11 @@ interpretación del notebook para reflejar ese costo.
 La revisión contra la guía y los pendientes de entrega están en
 [F3_VALIDACION_ENTREGA.md](F3_VALIDACION_ENTREGA.md). Este cierre no modifica el
 Word ni los resultados de la primera entrega.
+
+## 10. Aplicación de la lectura optimizada en el análisis — 27 de septiembre de 2026
+
+| ID | Decisión adoptada | Alternativas descartadas | Motivo |
+| --- | --- | --- | --- |
+| D-38 | Leer las siete columnas del análisis con tipos definidos en el notebook F3, en `F3/medir_algoritmos.py` y en la prueba con el dataset real | Mantener la lectura de 74 columnas en el análisis y dejar D-33 solo como recomendación | D-33 elegía esta lectura para F3, pero el análisis seguía leyendo todas las columnas; la sección 12 comprueba que los datos limpios y las proporciones no cambian |
+
+Las tablas de proporciones, los ejemplos, los casos límite, las equivalencias y las 29 pruebas quedaron idénticos. Se regeneraron las mediciones de algoritmos y de lectura. La agrupada sigue siendo la alternativa más rápida en ambas variables, por lo que se mantiene D-32. Su razón frente a la referencia F2 bajó de 1,74 y 1,72 a 1,16 y 1,17: gran parte del costo de la referencia provenía de filtrar columnas que el cálculo no usa. Con menos columnas, la mediana de la referencia en el conjunto completo pasó de ~67 a ~22 ms y el pico trazado de 40,81 a 6,51 MiB. La nueva sesión de lectura registra una razón cercana a 2,4 en el flujo completo. Las cifras de las secciones anteriores de este registro corresponden a sus sesiones.
