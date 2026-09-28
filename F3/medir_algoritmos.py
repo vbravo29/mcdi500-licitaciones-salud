@@ -22,7 +22,7 @@ from src.analisis import (
     tabla_proporciones, tabla_proporciones_iterativa,
     tabla_proporciones_recursiva, tabla_proporciones_agrupada,
 )
-from src.datos import ContratoEsquema, LectorCSV, sha256_archivo
+from src.datos import COLUMNAS_ANALISIS, TIPOS_ANALISIS, ContratoEsquema, LectorCSV, sha256_archivo
 from src.pipeline import LimpiadorLicitaciones
 from src.validacion import ValidadorDatasetProcesado
 
@@ -120,7 +120,10 @@ def ejecutar(salida=None, repeticiones=7, numero=3):
     # Comprobar el destino antes de invertir tiempo en el experimento.
     salida.mkdir(parents=True, exist_ok=True)
     ruta = RAIZ / "data/raw/licitaciones_salud_marzo_2026.csv"
-    raw = LectorCSV(ContratoEsquema(("TamanoProveedor", "TipoLicitacion"))).leer(ruta)
+    # Lectura del análisis de F3: solo columnas necesarias y tipos definidos (D-33).
+    lector = LectorCSV(ContratoEsquema(("TamanoProveedor", "TipoLicitacion")),
+                       columnas=COLUMNAS_ANALISIS, tipos=TIPOS_ANALISIS)
+    raw = lector.leer(ruta)
     datos = LimpiadorLicitaciones().limpiar(raw)
     ValidadorDatasetProcesado().validar(datos, len(raw))
     filas = medir(datos, repeticiones=repeticiones, numero=numero)
@@ -134,7 +137,8 @@ def ejecutar(salida=None, repeticiones=7, numero=3):
         "semilla": 2026, "bloque_base": 256,
         "repeticiones": repeticiones, "ejecuciones_por_repeticion": numero,
         "repeticiones_memoria": 3,
-        "alcance": "Cálculo completo sobre DataFrame cargado: filtro, conversión, conteos y salida. Excluye lectura, limpieza, muestreo y validación de equivalencia.",
+        "columnas_leidas": list(COLUMNAS_ANALISIS),
+        "alcance": "Cálculo completo sobre DataFrame cargado con las columnas del análisis: filtro, conversión, conteos y salida. Excluye lectura, limpieza, muestreo y validación de equivalencia.",
         "memoria": "Pico de asignaciones rastreadas con tracemalloc; entrada preexistente excluida; no es RSS ni garantiza cubrir toda la memoria nativa.",
         "tiempo": "timeit sin tracemalloc; GC desactivado durante cada ronda; orden alternado con semilla. Mínimo como referencia de menor interferencia, mediana y cuartiles describen la sesión.",
         "mediciones": filas,

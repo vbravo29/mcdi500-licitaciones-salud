@@ -15,7 +15,7 @@ from src.analisis import (
     tabla_proporciones, tabla_proporciones_iterativa,
     tabla_proporciones_recursiva, tabla_proporciones_agrupada,
 )
-from src.datos import ContratoEsquema, LectorCSV
+from src.datos import COLUMNAS_ANALISIS, TIPOS_ANALISIS, ContratoEsquema, LectorCSV
 from src.pipeline import LimpiadorLicitaciones
 
 ALTERNATIVAS = (
@@ -112,7 +112,8 @@ class PruebasAlgoritmos(unittest.TestCase):
 
     def test_dataset_real_ambas_agrupaciones(self):
         ruta = RAIZ / "data/raw/licitaciones_salud_marzo_2026.csv"
-        datos = LectorCSV(ContratoEsquema(("TamanoProveedor", "TipoLicitacion"))).leer(ruta)
+        datos = LectorCSV(ContratoEsquema(("TamanoProveedor", "TipoLicitacion")),
+                          columnas=COLUMNAS_ANALISIS, tipos=TIPOS_ANALISIS).leer(ruta)
         limpio = LimpiadorLicitaciones().limpiar(datos)
         for grupo in ("TamanoProveedor", "TipoLicitacion"):
             self.comprobar(limpio, grupo)

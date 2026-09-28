@@ -89,7 +89,7 @@ La revisión detectó un caso pendiente del aporte POO: `ValidadorDatasetProcesa
 
 ---
 
-Repositorio: <https://github.com/vbravo29/sumativo-1> · Las decisiones aquí registradas se
+Repositorio: <https://github.com/vbravo29/mcdi500-licitaciones-salud> · Las decisiones aquí registradas se
 implementan en los módulos de `src/`, con acceso compatible desde `src/proyecto.py`.
 El informe de F1/F2 describe la arquitectura anterior; esta sección registra su evolución en F3.
 
@@ -114,3 +114,49 @@ Se revisó el notebook frente al documento técnico. Aunque contenía evidencia 
 Se reorganizó `F3/F3_Algoritmos.ipynb` en 24 celdas de código con objetivos diferenciados: entorno, presentación, lectura, limpieza, calidad, ejemplo manual, recursividad, pruebas, casos límite, equivalencia, resultados por variable, evidencia de medición, tiempos, memoria y decisión final. Cada celda de salida contiene como máximo una tabla; esto se comprobó sobre el notebook ejecutado. Es una convención de legibilidad y separación de responsabilidades, no un requisito de convertir cada instrucción en una celda.
 
 Las decisiones, el efecto del bloque base, los costos de preparación, las diferencias pequeñas de tiempos, la interpretación de memoria y las limitaciones quedaron explicados junto a sus resultados. El informe resume estos antecedentes. Se ejecutaron las 24 celdas sin errores y las 14 pruebas continuaron aprobadas. No se modificaron los algoritmos, las mediciones guardadas ni los módulos de otros integrantes.
+
+## 8. Rendimiento de la lectura — 27 de septiembre de 2026
+
+| ID | Decisión adoptada | Alternativas descartadas | Motivo |
+| --- | --- | --- | --- |
+| D-33 | Leer para F3 solo las siete columnas necesarias, con tipos `category` en las cuatro categóricas; mantener la lectura completa como comportamiento por defecto de `LectorCSV` | Leer siempre todas las columnas · tipar las fechas al leer · leer `NroLicitacion` como `string` | El flujo de lectura, limpieza y proporciones es unas 2,5 veces más rápido y el DataFrame leído ocupa cerca de un 95 % menos memoria, con datos limpios y proporciones idénticos; las fechas ya se convierten en la limpieza y F1/F2 exploran todas las columnas |
+| D-34 | Calcular las huellas del código con saltos de línea normalizados | Huella por bytes del archivo | Git en Windows convierte los saltos de línea a CRLF y la misma versión tendría otra huella en cada equipo |
+| D-35 | Integrar la comparación de lectura como sección 12 de `F3/F3_Algoritmos.ipynb`, sin cambiar el código de las secciones de algoritmos | Mantener un notebook de lectura separado | Un solo notebook reúne las decisiones de F3; las variables de lectura llevan el sufijo `_lectura` para no reemplazar las de algoritmos |
+
+La comparación verifica la equivalencia antes de medir y reutiliza las funciones de medición de `F3/medir_algoritmos.py`. Las mediciones están en `F3/mediciones_lectura/`. Se comprobó que las 31 celdas de código trasladadas producen salidas idénticas a las de los notebooks anteriores, que se eliminaron junto con `F3/verificar_lectura.py`. El registro de ejecución del notebook se actualizará al ejecutar `F3/verificar_algoritmos.py`.
+
+## 9. Cierre técnico y compatibilidad — 27 de septiembre de 2026
+
+Las secciones anteriores registran el estado de cada incremento. En la versión
+actual están integrados los aportes de lectura, limpieza, validación y algoritmos.
+El caso `ValidadorDatasetProcesado([])` ya fue corregido por Nayadeth: una lista
+vacía se rechaza y `None` selecciona las reglas predeterminadas.
+
+| ID | Decisión adoptada | Alternativas descartadas | Motivo |
+| --- | --- | --- | --- |
+| D-36 | Convertir las columnas del contrato a una tupla propia y validar sus nombres | Conservar una lista externa dentro de un objeto frozen | Impedir que una modificación externa altere el esquema después de construirlo; congelar atributos no congela una lista almacenada. |
+| D-37 | Ejecutar F1/F2 en copias temporales y comparar resultados sin guardarlos sobre la primera entrega | Reejecutar los verificadores originales sobre los archivos entregados | Comprobar compatibilidad conservando los notebooks, las evidencias y los CSV anteriores. |
+
+El notebook integrado ejecuta 32 celdas y 29 pruebas (ocho algorítmicas, 14 POO y
+siete de lectura). Se actualizó su registro de ejecución. La comparación de F1/F2
+queda en `evidencias/F3_compatibilidad.json`: mismas tablas de proporciones y
+mismos CSV por SHA-256, con exportaciones temporales.
+
+La modificación de `datos.py` exigió regenerar las mediciones de lectura, sin
+alterar las mediciones de algoritmos. La nueva sesión conserva una razón cercana
+a 2,5 entre la mediana del flujo original y la lectura con columnas y tipos.
+Definir tipos tiene una mediana de lectura ligeramente mayor que seleccionar
+solo columnas (353 frente a 347 ms), a cambio de menos memoria. Se actualizó la
+interpretación del notebook para reflejar ese costo.
+
+La revisión contra la guía y los pendientes de entrega están en
+[F3_VALIDACION_ENTREGA.md](F3_VALIDACION_ENTREGA.md). Este cierre no modifica el
+Word ni los resultados de la primera entrega.
+
+## 10. Aplicación de la lectura optimizada en el análisis — 27 de septiembre de 2026
+
+| ID | Decisión adoptada | Alternativas descartadas | Motivo |
+| --- | --- | --- | --- |
+| D-38 | Leer las siete columnas del análisis con tipos definidos en el notebook F3, en `F3/medir_algoritmos.py` y en la prueba con el dataset real | Mantener la lectura de 74 columnas en el análisis y dejar D-33 solo como recomendación | D-33 elegía esta lectura para F3, pero el análisis seguía leyendo todas las columnas; la sección 12 comprueba que los datos limpios y las proporciones no cambian |
+
+Las tablas de proporciones, los ejemplos, los casos límite, las equivalencias y las 29 pruebas quedaron idénticos. Se regeneraron las mediciones de algoritmos y de lectura. La agrupada sigue siendo la alternativa más rápida en ambas variables, por lo que se mantiene D-32. Su razón frente a la referencia F2 bajó de 1,74 y 1,72 a 1,16 y 1,17: gran parte del costo de la referencia provenía de filtrar columnas que el cálculo no usa. Con menos columnas, la mediana de la referencia en el conjunto completo pasó de ~67 a ~22 ms y el pico trazado de 40,81 a 6,51 MiB. La nueva sesión de lectura registra una razón cercana a 2,4 en el flujo completo. Las cifras de las secciones anteriores de este registro corresponden a sus sesiones.

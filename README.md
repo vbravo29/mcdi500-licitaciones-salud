@@ -2,7 +2,9 @@
 
 Proyecto de Programación para la Ciencia de Datos sobre ofertas del sector Salud incluidas en el reporte de ChileCompra de marzo de 2026. Comprende la definición del problema (F1), el preprocesamiento de datos (F2) y la implementación y evaluación de algoritmos con programación orientada a objetos (F3).
 
-**Repositorio:** [github.com/vbravo29/sumativo-1](https://github.com/vbravo29/sumativo-1)
+**Repositorio:** [github.com/vbravo29/mcdi500-licitaciones-salud](https://github.com/vbravo29/mcdi500-licitaciones-salud)
+
+> **Cambio de nombre del repositorio.** El repositorio se creó como `sumativo-1` porque inicialmente solo contenía el primer entregable (Fases 1 y 2). Al continuar el proyecto en la Fase 3 se renombró a `mcdi500-licitaciones-salud`, un nombre que identifica el curso y el caso de estudio y no una evaluación puntual. El historial de commits se conserva completo y GitHub redirige automáticamente el enlace anterior. Algunas salidas guardadas del notebook F2 muestran rutas locales con el nombre antiguo (`C:\Trabajos\sumativo-1`); se mantienen sin cambios porque forman parte de la evidencia de ejecución de la primera entrega.
 
 ## Objetivo y alcance
 
@@ -33,7 +35,7 @@ El archivo contiene datos del proceso de licitación, fechas, organismos comprad
 | `src/` | Clases y funciones de procesamiento y análisis. |
 | `data/raw/` | Dataset original versionado. |
 | `data/processed/` | CSV derivados generados localmente; excluidos de Git. |
-| `docs/` | Informe F1/F2, mapa conceptual, decisiones técnicas y sección de algoritmos para el informe F3. |
+| `docs/` | Informes F1/F2 y F3, mapa conceptual, decisiones técnicas y sección de algoritmos. |
 | `evidencias/` | Registros de ejecución y resultados de las mediciones. |
 
 ## Preparación del entorno
@@ -60,10 +62,11 @@ Los siguientes comandos se ejecutan desde la raíz del repositorio:
 .\.venv\Scripts\python.exe F2\verificar_f2.py
 
 # Pruebas de algoritmos y clases
-.\.venv\Scripts\python.exe -m unittest F3.test_algoritmos F3.test_nucleo_poo -v
+.\.venv\Scripts\python.exe -m unittest F3.test_algoritmos F3.test_nucleo_poo F3.test_lectura -v
 
 # Mediciones y ejecución del notebook F3
 .\.venv\Scripts\python.exe F3\medir_algoritmos.py
+.\.venv\Scripts\python.exe F3\medir_lectura.py
 .\.venv\Scripts\python.exe F3\verificar_algoritmos.py
 ```
 
@@ -94,7 +97,7 @@ Las reglas y sus justificaciones se encuentran en el notebook F2 y en [DECISIONE
 | `src/pipeline.py` | Coordinación de la limpieza mediante `LimpiadorLicitaciones`. |
 | `src/validacion.py` | Validación del dataset mediante reglas y comprobación de indicadores. |
 | `src/analisis.py` | Exploración, frecuencias y algoritmos de cálculo de proporciones. |
-| `src/entorno.py` | Consulta de versiones de dependencias. |
+| `src/entorno.py` | Consulta de versiones de dependencias y datos del equipo para las mediciones. |
 | `src/ejecucion.py` | Ejecución de notebooks y registro de evidencias. |
 
 `src/proyecto.py` mantiene las importaciones utilizadas por F1 y F2. Las alternativas de cálculo de F3 se importan directamente desde `src/analisis.py`.
@@ -105,15 +108,28 @@ El [notebook F3](F3/F3_Algoritmos.ipynb) compara la referencia de F2 con version
 
 La variante agrupada obtuvo la menor mediana de tiempo para el conjunto completo en las mediciones guardadas. La comparación incluye la preparación interna y la salida del cálculo; excluye la lectura y limpieza del dataset. Los resultados y sus límites se explican en el notebook y en la [sección técnica de algoritmos](docs/F3_APORTE_ALGORITMOS.md).
 
+El mismo notebook compara en su sección 12 tres formas de leer el CSV. Leer solo las columnas necesarias con tipos definidos acelera el flujo de lectura, limpieza y proporciones y reduce la memoria, con los mismos datos y resultados. El análisis de F3 usa esa lectura; F1 y F2 mantienen la lectura completa.
+
 ## Documentación
 
 - **Informe F1/F2:** [editable](docs/informe_f1_f2_grupo_5.docx) y [PDF](docs/f1_s01_grupo5.pdf).
+- **Informe F3 (Avance Fase 3 – Semana 2):** [editable](docs/f3_s02_grupo5.docx).
 - **Mapa conceptual F1:** [PDF](docs/mcdi500_s1_grupo5.pdf) y [archivo draw.io](docs/mcdi500_s1_grupo5.drawio).
 - **Datos:** [procedencia y generación](data/README.md) y [diccionario de variables](data/DICCIONARIO_VARIABLES.md).
 - **Arquitectura y métodos:** [decisiones técnicas](docs/DECISIONES_TECNICAS.md).
 - **F3:** [instrucciones de ejecución](F3/README.md) y [análisis de algoritmos](docs/F3_APORTE_ALGORITMOS.md).
 
-El informe grupal de F3 y la integración de las mediciones de lectura y actualizaciones de validación están pendientes.
+Los aportes de algoritmos, lectura y validación están integrados en F3 y se describen en el informe F3, cuyas cifras corresponden a las mediciones guardadas en `evidencias/F3_algoritmos/` y `F3/mediciones_lectura/`.
+
+## Contribuciones e identidades en Git
+
+El archivo [.mailmap](.mailmap) agrupa las identidades históricas de cada integrante (por ejemplo, `vbravo29` y `vicsb22` corresponden a Víctor Bravo Barrera) sin reescribir el historial. `git shortlog -sne` muestra los aportes consolidados. El autor `alexander` corresponde a un exintegrante que se retiró del grupo por decisión propia, situación informada al docente.
+
+| Integrante | Responsabilidad principal en F3 |
+| --- | --- |
+| Víctor Bravo Barrera | Separación modular de `src/`, algoritmos iterativo, recursivo y agrupado, mediciones y notebook F3. |
+| Nayadeth Garrido Ibáñez | Núcleo POO de limpieza y validación, casos de error e informe institucional. |
+| Mauricio Cid | Lectura configurable (`LectorCSV`), comparación de lectura, pruebas de lectura y registro del entorno. |
 
 ## Trabajo con ramas
 

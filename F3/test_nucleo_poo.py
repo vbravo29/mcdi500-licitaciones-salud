@@ -1,5 +1,6 @@
 """Pruebas unitarias del primer incremento POO de F3."""
 from pathlib import Path
+from dataclasses import FrozenInstanceError
 import sys
 import unittest
 
@@ -48,6 +49,33 @@ class ReglaSiempreValida(ReglaValidacion):
 
 
 class PruebasNucleoPOO(unittest.TestCase):
+    def test_contrato_conserva_columnas_ante_mutacion_externa(self):
+        columnas = ["id", "valor"]
+        contrato = ContratoEsquema(columnas)
+        columnas.append("otra")
+        self.assertEqual(contrato.columnas_requeridas, ("id", "valor"))
+        contrato.validar(pd.DataFrame({"id": [1], "valor": [2]}))
+        with self.assertRaises(FrozenInstanceError):
+            contrato.columnas_requeridas = ("otra",)
+
+    def test_contrato_rechaza_nombres_invalidos(self):
+        for entrada in ("id", b"id"):
+            with self.subTest(entrada=entrada), self.assertRaises(TypeError):
+                ContratoEsquema(entrada)
+        for entrada in (("",), ("  ",), (42,)):
+            with self.subTest(entrada=entrada), self.assertRaises(ValueError):
+                ContratoEsquema(entrada)
+
+    def test_contrato_rechaza_definiciones_invalidas(self):
+        with self.assertRaisesRegex(ValueError, "al menos una columna"):
+            ContratoEsquema(())
+        with self.assertRaisesRegex(ValueError, "duplicadas"):
+            ContratoEsquema(("id", "id"))
+
+    def test_lector_rechaza_un_contrato_de_otro_tipo(self):
+        with self.assertRaisesRegex(TypeError, "ContratoEsquema"):
+            LectorCSV(("id", "valor"))
+
     def test_lector_aplica_contrato_y_adaptador_conserva_resultado(self):
         ruta = RAIZ / "F3" / "fixtures" / "muestra_valida.csv"
         lector = LectorCSV(ContratoEsquema(("id", "valor")))
@@ -74,6 +102,35 @@ class PruebasNucleoPOO(unittest.TestCase):
         self.assertTrue(pd.isna(salida.loc[0, "FechaEstimadaEvaluacionOfertas"]))
         pd.testing.assert_frame_equal(salida, limpiar_datos_f2(entrada))
 
+    def test_resumen_del_limpiador_es_una_copia_defensiva(self):
+        limpiador = LimpiadorLicitaciones()
+        limpiador.limpiar(datos_minimos())
+
+        resumen_externo = limpiador.ultima_ejecucion
+        resumen_externo["filas_salida"] = 999
+        resumen_externo["columnas_excluidas"] = ()
+
+        resumen_interno = limpiador.ultima_ejecucion
+        self.assertEqual(resumen_interno["filas_salida"], 2)
+        self.assertEqual(len(resumen_interno["columnas_excluidas"]), 3)
+
+    def test_limpiador_rechaza_configuracion_y_entradas_invalidas(self):
+        with self.assertRaisesRegex(TypeError, "excluir_vacias"):
+            LimpiadorLicitaciones(excluir_vacias="no")
+        with self.assertRaisesRegex(TypeError, "DataFrame"):
+            LimpiadorLicitaciones().limpiar([])
+        with self.assertRaisesRegex(ValueError, "DataFrame vacío"):
+            LimpiadorLicitaciones().limpiar(pd.DataFrame())
+
+        sin_columna_clave = datos_minimos().drop(columns="NroLicitacion")
+        with self.assertRaisesRegex(KeyError, "columnas clave"):
+            LimpiadorLicitaciones().limpiar(sin_columna_clave)
+
+        fecha_invalida = datos_minimos()
+        fecha_invalida.loc[0, "FechaPublicacion"] = "fecha imposible"
+        with self.assertRaisesRegex(ValueError, "fechas no interpretables"):
+            LimpiadorLicitaciones().limpiar(fecha_invalida)
+
     def test_validador_por_reglas_y_adaptador(self):
         salida = LimpiadorLicitaciones().limpiar(datos_minimos())
         resultado = ValidadorDatasetProcesado().validar(salida, 2)
@@ -87,6 +144,23 @@ class PruebasNucleoPOO(unittest.TestCase):
             salida, 2
         )
         self.assertEqual(resultado["detalle_reglas"], ("regla_extension",))
+
+    def test_validador_distingue_ausencia_de_reglas_de_lista_vacia(self):
+        self.assertEqual(len(ValidadorDatasetProcesado().reglas), 6)
+        with self.assertRaisesRegex(ValueError, "al menos una regla"):
+            ValidadorDatasetProcesado([])
+
+    def test_validador_rechaza_reglas_y_datos_invalidos(self):
+        with self.assertRaisesRegex(TypeError, "colección de reglas"):
+            ValidadorDatasetProcesado(42)
+        with self.assertRaisesRegex(TypeError, "heredar de ReglaValidacion"):
+            ValidadorDatasetProcesado([object()])
+
+        validador = ValidadorDatasetProcesado([ReglaSiempreValida()])
+        with self.assertRaisesRegex(TypeError, "DataFrame"):
+            validador.validar([], 0)
+        with self.assertRaisesRegex(AssertionError, "está vacío"):
+            validador.validar(pd.DataFrame(), 0)
 
     def test_validador_detecta_caso_limite(self):
         salida = LimpiadorLicitaciones().limpiar(datos_minimos())

@@ -1,0 +1,379 @@
+{
+  "fecha_utc": "2026-09-28T01:10:31.196633+00:00",
+  "python": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+  "sistema": "Windows-11-10.0.26200-SP0",
+  "procesador": "Intel64 Family 6 Model 141 Stepping 1, GenuineIntel",
+  "numpy": "2.3.5",
+  "pandas": "3.0.1",
+  "jupyterlab": "4.6.4",
+  "ipykernel": "7.3.0",
+  "nbformat": "5.11.1",
+  "nbconvert": "7.17.1",
+  "nbclient": "0.11.0",
+  "raw_sha256": "490d9209a10d387011d481b72b7891f26e997974ec2cf9dfc518aa4a08552232",
+  "datos_sha256": "0f63e511b69cf769b1c92acac09e4a636a44bdafdff1c3ba2d5ff1dc6b97306a",
+  "medicion_sha256": "8eed1a85e59b8eac6e57d1a570bb0332cff16e77e66a42f8e2efb313b18ad82b",
+  "medir_algoritmos_sha256": "7b9677eb469c39e6e1c63722fab121b136075d2925e143d0fb3b0d20dad27c9a",
+  "columnas_analisis": [
+    "NroLicitacion",
+    "TipoLicitacion",
+    "TamanoProveedor",
+    "ResultadoOferta",
+    "EstadoLicitacion",
+    "FechaPublicacion",
+    "FechaCierre"
+  ],
+  "tipos_analisis": {
+    "TipoLicitacion": "category",
+    "TamanoProveedor": "category",
+    "ResultadoOferta": "category",
+    "EstadoLicitacion": "category"
+  },
+  "semilla": 2026,
+  "repeticiones": 7,
+  "ejecuciones_por_repeticion": 1,
+  "repeticiones_memoria": 3,
+  "alcance": "Lectura del CSV con LectorCSV (1.000, 10.000 filas y archivo completo) y flujo completo: lectura, limpieza y proporciones por tamaño de proveedor y tipo de licitación.",
+  "memoria": "memoria_dataframe_bytes: memory_usage(deep=True) del resultado. Pico: asignaciones rastreadas con tracemalloc; no es RSS ni incluye todos los búferes internos del lector de pandas.",
+  "tiempo": "timeit sin tracemalloc; GC desactivado durante cada ronda; una ejecución por ronda con orden alternado por semilla y una lectura previa de calentamiento.",
+  "equivalencia": [
+    {
+      "opcion": "actual",
+      "filas": 44226,
+      "columnas_limpias": 74,
+      "columnas_necesarias": "iguales",
+      "validacion": "OK",
+      "proporciones": "iguales"
+    },
+    {
+      "opcion": "solo_columnas",
+      "filas": 44226,
+      "columnas_limpias": 10,
+      "columnas_necesarias": "iguales",
+      "validacion": "OK",
+      "proporciones": "iguales"
+    },
+    {
+      "opcion": "columnas_y_tipos",
+      "filas": 44226,
+      "columnas_limpias": 10,
+      "columnas_necesarias": "iguales",
+      "validacion": "OK",
+      "proporciones": "iguales"
+    }
+  ],
+  "mediciones": [
+    {
+      "etapa": "lectura",
+      "filas": 1000,
+      "columnas": 74,
+      "opcion": "actual",
+      "min_ms": 17.06240000203252,
+      "mediana_ms": 18.03039999504108,
+      "q25_ms": 17.908499998156913,
+      "q75_ms": 18.082399998093024,
+      "pico_trazado_bytes_mediana": 2036089.0,
+      "tiempos_ms": [
+        17.892999996547587,
+        18.089099998178426,
+        18.07569999800762,
+        18.03039999504108,
+        17.06240000203252,
+        17.923999999766238,
+        19.07290000235662
+      ],
+      "picos_trazados_bytes": [
+        2036134,
+        2035954,
+        2036089
+      ],
+      "memoria_dataframe_bytes": 4719090
+    },
+    {
+      "etapa": "lectura",
+      "filas": 1000,
+      "columnas": 7,
+      "opcion": "solo_columnas",
+      "min_ms": 11.023300001397729,
+      "mediana_ms": 11.331900001096074,
+      "q25_ms": 11.072450000938261,
+      "q75_ms": 11.48914999794215,
+      "pico_trazado_bytes_mediana": 1079438.0,
+      "tiempos_ms": [
+        11.023300001397729,
+        11.701999996148515,
+        11.614700000791345,
+        11.040600002161227,
+        11.104299999715295,
+        11.331900001096074,
+        11.363599995092954
+      ],
+      "picos_trazados_bytes": [
+        1079438,
+        1079438,
+        1079438
+      ],
+      "memoria_dataframe_bytes": 484053
+    },
+    {
+      "etapa": "lectura",
+      "filas": 1000,
+      "columnas": 7,
+      "opcion": "columnas_y_tipos",
+      "min_ms": 11.488500000268687,
+      "mediana_ms": 11.933100002352148,
+      "q25_ms": 11.658899999019923,
+      "q75_ms": 12.161949998699129,
+      "pico_trazado_bytes_mediana": 1080006.0,
+      "tiempos_ms": [
+        11.488500000268687,
+        12.13129999814555,
+        12.215199996717274,
+        12.192599999252707,
+        11.55049999943003,
+        11.767299998609815,
+        11.933100002352148
+      ],
+      "picos_trazados_bytes": [
+        1080006,
+        1080006,
+        1080006
+      ],
+      "memoria_dataframe_bytes": 211845
+    },
+    {
+      "etapa": "lectura",
+      "filas": 10000,
+      "columnas": 74,
+      "opcion": "actual",
+      "min_ms": 141.67119999910938,
+      "mediana_ms": 144.08309999998892,
+      "q25_ms": 142.95744999981252,
+      "q75_ms": 148.73609999995097,
+      "pico_trazado_bytes_mediana": 11746470.0,
+      "tiempos_ms": [
+        147.67700000084005,
+        150.43149999837624,
+        143.68739999918034,
+        141.67119999910938,
+        142.2275000004447,
+        149.79519999906188,
+        144.08309999998892
+      ],
+      "picos_trazados_bytes": [
+        11747370,
+        11746411,
+        11746470
+      ],
+      "memoria_dataframe_bytes": 46088162
+    },
+    {
+      "etapa": "lectura",
+      "filas": 10000,
+      "columnas": 7,
+      "opcion": "solo_columnas",
+      "min_ms": 81.5154000010807,
+      "mediana_ms": 84.40089999930933,
+      "q25_ms": 82.23934999841731,
+      "q75_ms": 85.15904999876511,
+      "pico_trazado_bytes_mediana": 1907008.0,
+      "tiempos_ms": [
+        81.5154000010807,
+        81.96579999639653,
+        85.32569999806583,
+        85.4722000003676,
+        84.9923999994644,
+        84.40089999930933,
+        82.5129000004381
+      ],
+      "picos_trazados_bytes": [
+        1907683,
+        1906918,
+        1907008
+      ],
+      "memoria_dataframe_bytes": 4856986
+    },
+    {
+      "etapa": "lectura",
+      "filas": 10000,
+      "columnas": 7,
+      "opcion": "columnas_y_tipos",
+      "min_ms": 83.02539999567671,
+      "mediana_ms": 84.77380000113044,
+      "q25_ms": 83.97750000222004,
+      "q75_ms": 85.36540000204695,
+      "pico_trazado_bytes_mediana": 1634688.0,
+      "tiempos_ms": [
+        84.84440000029281,
+        84.77380000113044,
+        84.04490000248188,
+        83.02539999567671,
+        85.8864000038011,
+        86.31030000105966,
+        83.9101000019582
+      ],
+      "picos_trazados_bytes": [
+        1634688,
+        1634193,
+        1634958
+      ],
+      "memoria_dataframe_bytes": 2100211
+    },
+    {
+      "etapa": "lectura",
+      "filas": 44226,
+      "columnas": 74,
+      "opcion": "actual",
+      "min_ms": 822.9671000008238,
+      "mediana_ms": 841.1358000012115,
+      "q25_ms": 836.9866499997443,
+      "q75_ms": 854.0223499949207,
+      "pico_trazado_bytes_mediana": 45608559.0,
+      "tiempos_ms": [
+        822.9671000008238,
+        862.2045000010985,
+        841.1358000012115,
+        849.1251999948872,
+        840.3614999988349,
+        833.6118000006536,
+        858.9194999949541
+      ],
+      "picos_trazados_bytes": [
+        45608559,
+        45608649,
+        45608514
+      ],
+      "memoria_dataframe_bytes": 205185760
+    },
+    {
+      "etapa": "lectura",
+      "filas": 44226,
+      "columnas": 7,
+      "opcion": "solo_columnas",
+      "min_ms": 398.36880000075325,
+      "mediana_ms": 411.1702000009245,
+      "q25_ms": 404.25559999857796,
+      "q75_ms": 421.7249500034086,
+      "pico_trazado_bytes_mediana": 4629119.0,
+      "tiempos_ms": [
+        411.1702000009245,
+        399.9772999959532,
+        418.48490000120364,
+        408.5339000012027,
+        424.96500000561355,
+        398.36880000075325,
+        439.16869999520713
+      ],
+      "picos_trazados_bytes": [
+        4629119,
+        4629479,
+        4628984
+      ],
+      "memoria_dataframe_bytes": 21579108
+    },
+    {
+      "etapa": "lectura",
+      "filas": 44226,
+      "columnas": 7,
+      "opcion": "columnas_y_tipos",
+      "min_ms": 404.06500000244705,
+      "mediana_ms": 412.28189999674214,
+      "q25_ms": 408.13900000284775,
+      "q75_ms": 428.7779000005685,
+      "pico_trazado_bytes_mediana": 3397760.0,
+      "tiempos_ms": [
+        404.06500000244705,
+        437.02379999740515,
+        420.5320000037318,
+        412.28189999674214,
+        464.4419999967795,
+        406.65460000309395,
+        409.62340000260156
+      ],
+      "picos_trazados_bytes": [
+        3397670,
+        3398300,
+        3397760
+      ],
+      "memoria_dataframe_bytes": 9283887
+    },
+    {
+      "etapa": "flujo_completo",
+      "filas": 44226,
+      "columnas": 74,
+      "opcion": "actual",
+      "min_ms": 1180.4181999978027,
+      "mediana_ms": 1199.2433000050369,
+      "q25_ms": 1183.2348499992804,
+      "q75_ms": 1218.1540000019595,
+      "pico_trazado_bytes_mediana": 93453386.0,
+      "tiempos_ms": [
+        1211.276900001394,
+        1225.031100002525,
+        1185.8926999993855,
+        1230.7811999999103,
+        1180.5769999991753,
+        1199.2433000050369,
+        1180.4181999978027
+      ],
+      "picos_trazados_bytes": [
+        93453685,
+        93453386,
+        93452930
+      ],
+      "memoria_dataframe_bytes": 179855521
+    },
+    {
+      "etapa": "flujo_completo",
+      "filas": 44226,
+      "columnas": 10,
+      "opcion": "solo_columnas",
+      "min_ms": 484.23080000065966,
+      "mediana_ms": 500.5237000004854,
+      "q25_ms": 493.841750001593,
+      "q75_ms": 507.68155000332627,
+      "pico_trazado_bytes_mediana": 9981544.0,
+      "tiempos_ms": [
+        500.5237000004854,
+        523.3194999964326,
+        494.268499998725,
+        505.10290000238456,
+        484.23080000065966,
+        510.260200004268,
+        493.41500000446104
+      ],
+      "picos_trazados_bytes": [
+        9981544,
+        9981990,
+        9981376
+      ],
+      "memoria_dataframe_bytes": 18487565
+    },
+    {
+      "etapa": "flujo_completo",
+      "filas": 44226,
+      "columnas": 10,
+      "opcion": "columnas_y_tipos",
+      "min_ms": 487.1990000028745,
+      "mediana_ms": 505.88019999850076,
+      "q25_ms": 489.58734999905573,
+      "q75_ms": 513.7950999996974,
+      "pico_trazado_bytes_mediana": 9982978.0,
+      "tiempos_ms": [
+        506.9528999956674,
+        526.2473999973736,
+        489.1256999981124,
+        505.88019999850076,
+        487.1990000028745,
+        520.6373000037274,
+        490.04899999999907
+      ],
+      "picos_trazados_bytes": [
+        9983349,
+        9982978,
+        9982241
+      ],
+      "memoria_dataframe_bytes": 18487565
+    }
+  ]
+}

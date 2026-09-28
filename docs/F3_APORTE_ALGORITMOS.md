@@ -28,7 +28,7 @@ La función F2 se conserva sin cambios: ante ausencia de `ResultadoOferta` lanza
 
 Se usó `timeit` con siete rondas de tres ejecuciones y orden alternado con semilla 2026, calentamiento y validación previos. Se presentan mínimo, mediana y cuartiles; el mínimo ayuda a interpretar interferencias de otros procesos y los cuartiles describen esta sesión, sin constituir intervalos de confianza (Python Software Foundation, s. f.-a).
 
-Se midieron cuatro tamaños: 100, 1.000, 10.000 y 44.226 filas, en muestras anidadas de una permutación reproducible. Cada comparación recibe el mismo DataFrame. El tiempo incluye filtro, conversión de resultados, conteo y formato de salida. Excluye carga del CSV, limpieza, selección de muestras y comprobación de equivalencia. La optimización de lectura pertenece al aporte de Mauricio.
+Se midieron cuatro tamaños: 100, 1.000, 10.000 y 44.226 filas, en muestras anidadas de una permutación reproducible. Cada comparación recibe el mismo DataFrame. El tiempo incluye filtro, conversión de resultados, conteo y formato de salida. Excluye carga del CSV, limpieza, selección de muestras y comprobación de equivalencia. Los datos se leen con las siete columnas del análisis y tipos definidos, según la comparación de lectura aportada por Mauricio (sección 12 del notebook).
 
 Los picos de memoria se obtuvieron en tres ejecuciones separadas con `tracemalloc`, sin instrumentar los tiempos. Se excluye la entrada ya cargada. La métrica describe asignaciones rastreadas y no equivale a memoria total del proceso ni garantiza cubrir toda la memoria nativa (Python Software Foundation, s. f.-b).
 
@@ -40,22 +40,24 @@ El arnés separa preparación del caso, temporización, memoria y resumen. Reuti
 
 | Agrupación | Algoritmo | Mínimo (ms) | Mediana (ms) | Q25–Q75 (ms) | Pico trazado (MiB) |
 | --- | --- | ---: | ---: | ---: | ---: |
-| TamanoProveedor | referencia_f2 | 65.708 | 66.922 | 66.294–68.091 | 40.81 |
-| TamanoProveedor | iterativa | 39.920 | 41.857 | 40.571–42.057 | 26.07 |
-| TamanoProveedor | recursiva | 39.699 | 41.691 | 41.060–41.974 | 26.07 |
-| TamanoProveedor | agrupada | 36.189 | 38.554 | 37.699–39.959 | 26.07 |
-| TipoLicitacion | referencia_f2 | 64.916 | 68.251 | 67.027–68.721 | 40.81 |
-| TipoLicitacion | iterativa | 39.413 | 40.716 | 40.547–41.604 | 26.07 |
-| TipoLicitacion | recursiva | 40.110 | 40.528 | 40.142–41.657 | 26.07 |
-| TipoLicitacion | agrupada | 39.100 | 39.760 | 39.426–40.083 | 26.07 |
+| TamanoProveedor | referencia_f2 | 20.764 | 22.118 | 21.263–22.812 | 6.51 |
+| TamanoProveedor | iterativa | 22.088 | 23.082 | 22.456–23.473 | 4.55 |
+| TamanoProveedor | recursiva | 21.505 | 22.277 | 22.100–23.308 | 4.55 |
+| TamanoProveedor | agrupada | 18.168 | 19.024 | 18.318–19.777 | 4.55 |
+| TipoLicitacion | referencia_f2 | 23.555 | 24.444 | 24.236–26.895 | 6.51 |
+| TipoLicitacion | iterativa | 22.649 | 23.056 | 22.916–23.360 | 4.55 |
+| TipoLicitacion | recursiva | 22.422 | 22.924 | 22.806–23.891 | 4.55 |
+| TipoLicitacion | agrupada | 20.177 | 20.964 | 20.595–21.791 | 4.55 |
 
 ## Interpretación y elección
 
-Se selecciona `tabla_proporciones_agrupada` para el análisis de F3 sobre el conjunto completo: obtuvo la menor mediana en ambas variables y un pico trazado similar al de las otras dos alternativas nuevas, menor que la referencia F2. La mejora frente a F2 es aproximadamente 1,74 veces por tamaño y 1,72 veces por tipo en esta sesión. Esto no implica que pandas sea siempre más rápido ni que toda la ejecución del proyecto mejore en esa proporción.
+Se selecciona `tabla_proporciones_agrupada` para el análisis de F3 sobre el conjunto completo: obtuvo la menor mediana en ambas variables y un pico trazado similar al de las otras dos alternativas nuevas, menor que la referencia F2. La mejora frente a F2 es aproximadamente 1,16 veces por tamaño y 1,17 veces por tipo en esta sesión. Esto no implica que pandas sea siempre más rápido ni que toda la ejecución del proyecto mejore en esa proporción.
 
-La ventaja por tipo frente a la iterativa/recursiva es pequeña; sus mínimos son cercanos. En muestras pequeñas, las versiones iterativa y recursiva pueden tener menor costo fijo que agrupar. Por ello la elección se limita al volumen y las categorías del estudio, y no demuestra superioridad universal. No se reemplaza automáticamente la función pública F2 ni se introduce un selector dinámico.
+Con la lectura anterior de 74 columnas, la mejora frente a F2 era de 1,74 y 1,72 veces. Gran parte del costo de la referencia provenía de filtrar varias veces columnas que el cálculo no usa: al leer solo las columnas necesarias, su mediana pasó de ~67 a ~22 ms, y la iterativa y la recursiva quedaron a la par de ella. La agrupada sigue siendo entre un 9 % y un 18 % más rápida que esas dos alternativas.
 
-El pico similar de las tres alternativas nuevas sugiere que la preparación común pesa más que las diferencias de conteo en esta medición. El filtrado actual conserva todas las columnas antes de extraer las necesarias; esto limita el ahorro de memoria y constituye una posible mejora futura, no una optimización ya realizada.
+La ventaja por tipo frente a la iterativa/recursiva es cercana a un 9 %. En muestras pequeñas, las versiones iterativa y recursiva pueden tener menor costo fijo que agrupar. Por ello la elección se limita al volumen y las categorías del estudio, y no demuestra superioridad universal. No se reemplaza automáticamente la función pública F2 ni se introduce un selector dinámico.
+
+El pico similar de las tres alternativas nuevas sugiere que la preparación común pesa más que las diferencias de conteo en esta medición. El filtrado copia todas las columnas recibidas antes de extraer las necesarias; por eso leer solo las columnas del análisis redujo el pico trazado de 40,81 a 6,51 MiB en la referencia y de 26,07 a 4,55 MiB en las alternativas nuevas.
 
 La recursividad no aporta una ventaja sostenida sobre el recorrido iterativo. Su valor en este avance es mostrar descomposición, terminación y combinación correcta de resultados sobre un problema real. No hay cambio de unidad analítica ni nuevos hallazgos causales.
 
@@ -71,7 +73,7 @@ La variante agrupada y la referencia con tres resultados fijos tienen costo espe
 
 El notebook `F3/F3_Algoritmos.ipynb` integra las clases existentes, muestra ejemplos, ejecuta pruebas y consulta evidencia con comprobación de hashes. Puede regenerar las mediciones con `REGENERAR_MEDICIONES = True`. El script `F3/medir_algoritmos.py` guarda tiempos crudos, picos, parámetros, versiones y hashes en `evidencias/F3_algoritmos/`. La ejecución del notebook se registra con `F3/verificar_algoritmos.py`.
 
-Quedan para la integración grupal los resultados definitivos de Mauricio y Naya, las referencias docentes/académicas, la referencia al foro si corresponde y el informe institucional con revisión del PDF.
+Los aportes de lectura (Mauricio) y de limpieza y validación (Naya) están integrados. La bibliografía docente, técnica y académica y la síntesis de estos resultados se integraron en el informe institucional `docs/f3_s02_grupo5.docx`.
 
 ## Referencias técnicas
 

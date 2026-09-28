@@ -1,0 +1,31 @@
+{
+  "fecha_utc": "2026-09-28T00:28:23.255556+00:00",
+  "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "ejecuciones": [
+    {
+      "fase": "F1",
+      "celdas_codigo_ejecutadas": 4,
+      "kernel_nuevo": true,
+      "errores": 0
+    },
+    {
+      "fase": "F2",
+      "celdas_codigo_ejecutadas": 10,
+      "kernel_nuevo": true,
+      "errores": 0
+    }
+  ],
+  "tablas_proporciones_f2_identicas": true,
+  "csv_regenerados_identicos_a_csv_locales": true,
+  "prefijos_hash_coinciden_con_evidencia_f2": true,
+  "archivos_originales_sin_cambios": {
+    "F1\\F1_Definición.ipynb": "1a48ea27caa8d219a6d61cfdc403d08afab5839c7d23d34bb8aa87793b896116",
+    "F2\\F2_Preprocesamiento.ipynb": "f157eeb547bf2899df68d78f4b8d80b707c419759e45fa9b9a8c81f2d04bf47e",
+    "data\\processed\\licitaciones_salud_marzo_2026_codificado.csv": "f430f9267861f4f9211b0cded233985485e4526f45d76ae73fb8f3f542fb1a9e",
+    "data\\processed\\licitaciones_salud_marzo_2026_procesado.csv": "7e835d6725d8c4f9aa64ad97a294dc38fcc341e71373f544c7f6b8ba2ff31dc5",
+    "data\\raw\\licitaciones_salud_marzo_2026.csv": "490d9209a10d387011d481b72b7891f26e997974ec2cf9dfc518aa4a08552232",
+    "evidencias\\F1_ejecucion.json": "b685301c608fa667482ccc08801d8ba65ed43f7eb34dd6138c30aabeed17396e",
+    "evidencias\\F2_ejecucion.json": "80d20e4a7929c8b30bd1b21dc33ea88e4b97885a794806ee6d9e3de2888899bb"
+  },
+  "datos_codigo_sha256": "7d6dc781f9830eeaf523e572e39c9e5e060d7a7baa602f1a877ade46abf45686"
+}
