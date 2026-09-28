@@ -89,7 +89,7 @@ La revisión detectó un caso pendiente del aporte POO: `ValidadorDatasetProcesa
 
 ---
 
-Repositorio: <https://github.com/vbravo29/sumativo-1> · Las decisiones aquí registradas se
+Repositorio: <https://github.com/vbravo29/mcdi500-licitaciones-salud> · Las decisiones aquí registradas se
 implementan en los módulos de `src/`, con acceso compatible desde `src/proyecto.py`.
 El informe de F1/F2 describe la arquitectura anterior; esta sección registra su evolución en F3.
 

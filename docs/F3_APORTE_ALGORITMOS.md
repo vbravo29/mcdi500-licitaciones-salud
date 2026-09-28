@@ -73,7 +73,7 @@ La variante agrupada y la referencia con tres resultados fijos tienen costo espe
 
 El notebook `F3/F3_Algoritmos.ipynb` integra las clases existentes, muestra ejemplos, ejecuta pruebas y consulta evidencia con comprobación de hashes. Puede regenerar las mediciones con `REGENERAR_MEDICIONES = True`. El script `F3/medir_algoritmos.py` guarda tiempos crudos, picos, parámetros, versiones y hashes en `evidencias/F3_algoritmos/`. La ejecución del notebook se registra con `F3/verificar_algoritmos.py`.
 
-Los aportes de lectura (Mauricio) y de limpieza y validación (Naya) están integrados. Quedan para la integración grupal las referencias docentes/académicas, la referencia al foro si corresponde y el informe institucional con revisión del PDF.
+Los aportes de lectura (Mauricio) y de limpieza y validación (Naya) están integrados. La bibliografía docente, técnica y académica y la síntesis de estos resultados se integraron en el informe institucional `docs/f3_s02_grupo5.docx`.
 
 ## Referencias técnicas
 

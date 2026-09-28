@@ -80,14 +80,14 @@ En las mediciones guardadas, leer solo las columnas necesarias con tipos hace un
 
 ## Validación y documentación
 
-El notebook contiene 32 celdas de código: 24 de algoritmos y 8 de lectura. La suite integrada ejecuta 29 pruebas: ocho de algoritmos, 14 de POO y siete de lectura. `evidencias/F3_algoritmos_ejecucion.json` registra la ejecución completa en un kernel nuevo y la huella del notebook guardado. El notebook presenta por separado la preparación de datos, los casos de prueba, las proporciones, los tiempos y la memoria, con las explicaciones correspondientes a cada resultado.
+El notebook contiene 34 celdas de código: 25 de algoritmos y 9 de lectura, incluidos los gráficos de las secciones 8.6 y 12.11, que se reproducen como figuras 1 y 2 del informe. La suite integrada ejecuta 29 pruebas: ocho de algoritmos, 14 de POO y siete de lectura. `evidencias/F3_algoritmos_ejecucion.json` registra la ejecución completa en un kernel nuevo y la huella del notebook guardado. El notebook presenta por separado la preparación de datos, los casos de prueba, las proporciones, los tiempos y la memoria, con las explicaciones correspondientes a cada resultado.
 
 - [Decisiones técnicas](../docs/DECISIONES_TECNICAS.md): criterios de implementación y alternativas evaluadas.
 - [Análisis de algoritmos](../docs/F3_APORTE_ALGORITMOS.md): sección técnica preparada para el informe.
 - [Evidencias de rendimiento](../evidencias/F3_algoritmos/): resultados reproducibles del experimento de algoritmos.
 - [Mediciones de lectura](mediciones_lectura/): resultados reproducibles del experimento de lectura.
 
-## Pendientes
+## Verificación de compatibilidad
 
 La [revisión contra la guía](../docs/F3_VALIDACION_ENTREGA.md) detalla las
 evidencias y los límites de la validación. Para comprobar la conservación de la
@@ -100,7 +100,4 @@ primera entrega, con los dos CSV de F2 disponibles localmente:
 El resultado queda en `evidencias/F3_compatibilidad.json`. Las exportaciones de
 comprobación se generan en una carpeta temporal y se eliminan al terminar.
 
-- Completar el informe grupal y su bibliografía docente, técnica y académica.
-- Revisar su correspondencia con el notebook y el PDF final.
-- Resolver las identidades históricas de Git señaladas en la revisión.
-- Publicar el cierre revisado en `desarrollo` e integrarlo en `main`.
+El informe institucional de F3 se encuentra en `docs/f3_s02_grupo5.docx` y utiliza las cifras de las mediciones guardadas. Las identidades históricas de Git se agrupan mediante `.mailmap` en la raíz del repositorio.

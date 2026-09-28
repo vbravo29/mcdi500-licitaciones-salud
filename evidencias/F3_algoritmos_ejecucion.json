@@ -1,10 +1,10 @@
 {
-  "fecha_utc": "2026-09-28T01:13:18.991867+00:00",
-  "python": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+  "fecha_utc": "2026-09-28T02:48:07.688630+00:00",
+  "python": "3.11.15 (main, Mar  3 2026, 09:26:23) [GCC 13.3.0]",
   "notebook": "F3/F3_Algoritmos.ipynb",
-  "notebook_sha256": "47cb54db0e70225a1142d144b38a5c0fadadf04afe4a3903841b66ccb91cb067",
+  "notebook_sha256": "24f636014ed7f91f04b805a42f9181db944792cf9900ba60ecaf58feeb50aa18",
   "kernel_nuevo": true,
-  "celdas_codigo_ejecutadas": 32,
+  "celdas_codigo_ejecutadas": 34,
   "errores": 0,
   "alcance": "Algoritmos y lectura de F3: POO existente, oráculo manual, recursividad, pruebas, opciones de lectura y mediciones con hashes verificados."
 }

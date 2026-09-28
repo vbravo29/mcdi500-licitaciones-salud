@@ -2,7 +2,9 @@
 
 Proyecto de Programación para la Ciencia de Datos sobre ofertas del sector Salud incluidas en el reporte de ChileCompra de marzo de 2026. Comprende la definición del problema (F1), el preprocesamiento de datos (F2) y la implementación y evaluación de algoritmos con programación orientada a objetos (F3).
 
-**Repositorio:** [github.com/vbravo29/sumativo-1](https://github.com/vbravo29/sumativo-1)
+**Repositorio:** [github.com/vbravo29/mcdi500-licitaciones-salud](https://github.com/vbravo29/mcdi500-licitaciones-salud)
+
+> **Cambio de nombre del repositorio.** El repositorio se creó como `sumativo-1` porque inicialmente solo contenía el primer entregable (Fases 1 y 2). Al continuar el proyecto en la Fase 3 se renombró a `mcdi500-licitaciones-salud`, un nombre que identifica el curso y el caso de estudio y no una evaluación puntual. El historial de commits se conserva completo y GitHub redirige automáticamente el enlace anterior. Algunas salidas guardadas del notebook F2 muestran rutas locales con el nombre antiguo (`C:\Trabajos\sumativo-1`); se mantienen sin cambios porque forman parte de la evidencia de ejecución de la primera entrega.
 
 ## Objetivo y alcance
 
@@ -33,7 +35,7 @@ El archivo contiene datos del proceso de licitación, fechas, organismos comprad
 | `src/` | Clases y funciones de procesamiento y análisis. |
 | `data/raw/` | Dataset original versionado. |
 | `data/processed/` | CSV derivados generados localmente; excluidos de Git. |
-| `docs/` | Informe F1/F2, mapa conceptual, decisiones técnicas y sección de algoritmos para el informe F3. |
+| `docs/` | Informes F1/F2 y F3, mapa conceptual, decisiones técnicas y sección de algoritmos. |
 | `evidencias/` | Registros de ejecución y resultados de las mediciones. |
 
 ## Preparación del entorno
@@ -111,12 +113,23 @@ El mismo notebook compara en su sección 12 tres formas de leer el CSV. Leer sol
 ## Documentación
 
 - **Informe F1/F2:** [editable](docs/informe_f1_f2_grupo_5.docx) y [PDF](docs/f1_s01_grupo5.pdf).
+- **Informe F3 (Avance Fase 3 – Semana 2):** [editable](docs/f3_s02_grupo5.docx).
 - **Mapa conceptual F1:** [PDF](docs/mcdi500_s1_grupo5.pdf) y [archivo draw.io](docs/mcdi500_s1_grupo5.drawio).
 - **Datos:** [procedencia y generación](data/README.md) y [diccionario de variables](data/DICCIONARIO_VARIABLES.md).
 - **Arquitectura y métodos:** [decisiones técnicas](docs/DECISIONES_TECNICAS.md).
 - **F3:** [instrucciones de ejecución](F3/README.md) y [análisis de algoritmos](docs/F3_APORTE_ALGORITMOS.md).
 
-Los aportes de algoritmos, lectura y validación están integrados en F3. Quedan pendientes el cierre del informe grupal, su bibliografía y la revisión de correspondencia con el notebook.
+Los aportes de algoritmos, lectura y validación están integrados en F3 y se describen en el informe F3, cuyas cifras corresponden a las mediciones guardadas en `evidencias/F3_algoritmos/` y `F3/mediciones_lectura/`.
+
+## Contribuciones e identidades en Git
+
+El archivo [.mailmap](.mailmap) agrupa las identidades históricas de cada integrante (por ejemplo, `vbravo29` y `vicsb22` corresponden a Víctor Bravo Barrera) sin reescribir el historial. `git shortlog -sne` muestra los aportes consolidados. El autor `alexander` corresponde a un exintegrante que se retiró del grupo por decisión propia, situación informada al docente.
+
+| Integrante | Responsabilidad principal en F3 |
+| --- | --- |
+| Víctor Bravo Barrera | Separación modular de `src/`, algoritmos iterativo, recursivo y agrupado, mediciones y notebook F3. |
+| Nayadeth Garrido Ibáñez | Núcleo POO de limpieza y validación, casos de error e informe institucional. |
+| Mauricio Cid | Lectura configurable (`LectorCSV`), comparación de lectura, pruebas de lectura y registro del entorno. |
 
 ## Trabajo con ramas
 

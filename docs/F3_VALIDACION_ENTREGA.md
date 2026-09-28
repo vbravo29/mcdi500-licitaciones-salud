@@ -16,7 +16,7 @@ esta revisión.
 | Recursividad justificada | `_contar_dividiendo` divide intervalos, termina en bloques de hasta 256 filas y suma conteos parciales. Las secciones 4 y 10 explican terminación, equivalencia y complejidad. No se afirma que sea la alternativa más rápida. |
 | Herencia y polimorfismo | `LectorCSV` implementa `LectorDatos`; las reglas implementan `ReglaValidacion`. El validador admite reglas nuevas sin cambiar su coordinación, verificado mediante una regla de prueba. |
 | Encapsulamiento | El contrato copia los nombres a una tupla; el limpiador protege su resumen y conserva la entrada; el validador mantiene una colección de reglas y rechaza una lista vacía. |
-| Notebook ejecutado y documentado | 32 celdas de código, ejecución completa en un kernel nuevo, pruebas integradas y tablas separadas por propósito. Registro en `evidencias/F3_algoritmos_ejecucion.json`. |
+| Notebook ejecutado y documentado | 34 celdas de código (incluidos dos gráficos), ejecución completa en un kernel nuevo, pruebas integradas y tablas separadas por propósito. Registro en `evidencias/F3_algoritmos_ejecucion.json`. |
 | Repositorio reproducible | F2/F3 organizados, dependencias e instrucciones en README. Los CSV procesados se regeneran y están excluidos de Git, expresamente documentado. |
 | Contribuciones individuales | El historial contiene aportes recientes de Víctor, Nayadeth y Mauricio. Los cambios de este cierre aún requieren commit y publicación. |
 
@@ -34,21 +34,13 @@ El resultado y las huellas de los archivos conservados se registran en
 locales de F2. No modifica la unidad de observación, los filtros ni los
 denominadores del primer entregable.
 
-## Pendientes para la entrega completa
+## Cierre de la entrega
 
-- Cerrar el informe institucional, revisar su correspondencia con las cifras
-  actuales del notebook y verificar el PDF exportado. El Word no se modificó.
-- Verificar la bibliografía grupal: al menos dos fuentes docentes, dos técnicas
-  oficiales y una académica complementaria, con citas y formato APA 7. El
-  notebook contiene fuentes técnicas; eso no cubre por sí solo la diversidad
-  exigida. No se ha validado la bibliografía del Word en esta revisión.
-- Resolver las identidades históricas de Git. Víctor aún aparece con tres
-  nombres; también existe el autor `alexander`. No se reasignan autorías ni se
-  reescribe el historial sin aclarar su correspondencia. La aclaración final
-  del profesor mantiene la observación sobre las identidades de Víctor.
-- Publicar los cambios revisados en `desarrollo` y realizar la revisión grupal
-  antes de integrar en `main`.
-
-La parte técnica revisada funciona y conserva los resultados anteriores.
-El cumplimiento global de la entrega depende todavía del informe, sus fuentes,
-la trazabilidad de autores y la publicación del cierre.
+- El informe institucional (`docs/f3_s02_grupo5.docx`) se redactó con las cifras
+  actuales de `evidencias/F3_algoritmos/resumen.csv` y
+  `F3/mediciones_lectura/resumen.csv`. Incluye bibliografía APA 7 con fuentes
+  docentes, técnicas oficiales y académicas citadas en el texto.
+- Las identidades históricas de Git se agrupan con `.mailmap`, sin reescribir
+  el historial. El autor `alexander` corresponde a un exintegrante.
+- Antes de entregar: revisar el Word, actualizar el índice, exportar el PDF,
+  publicar `desarrollo` e integrarla en `main` mediante pull request.
