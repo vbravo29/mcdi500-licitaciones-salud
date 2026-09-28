@@ -60,10 +60,11 @@ Los siguientes comandos se ejecutan desde la raíz del repositorio:
 .\.venv\Scripts\python.exe F2\verificar_f2.py
 
 # Pruebas de algoritmos y clases
-.\.venv\Scripts\python.exe -m unittest F3.test_algoritmos F3.test_nucleo_poo -v
+.\.venv\Scripts\python.exe -m unittest F3.test_algoritmos F3.test_nucleo_poo F3.test_lectura -v
 
 # Mediciones y ejecución del notebook F3
 .\.venv\Scripts\python.exe F3\medir_algoritmos.py
+.\.venv\Scripts\python.exe F3\medir_lectura.py
 .\.venv\Scripts\python.exe F3\verificar_algoritmos.py
 ```
 
@@ -115,7 +116,7 @@ El mismo notebook compara en su sección 12 tres formas de leer el CSV. Leer sol
 - **Arquitectura y métodos:** [decisiones técnicas](docs/DECISIONES_TECNICAS.md).
 - **F3:** [instrucciones de ejecución](F3/README.md) y [análisis de algoritmos](docs/F3_APORTE_ALGORITMOS.md).
 
-El informe grupal de F3 y la integración de las mediciones de lectura y actualizaciones de validación están pendientes.
+Los aportes de algoritmos, lectura y validación están integrados en F3. Quedan pendientes el cierre del informe grupal, su bibliografía y la revisión de correspondencia con el notebook.
 
 ## Trabajo con ramas
 

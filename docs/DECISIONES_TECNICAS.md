@@ -124,3 +124,31 @@ Las decisiones, el efecto del bloque base, los costos de preparación, las difer
 | D-35 | Integrar la comparación de lectura como sección 12 de `F3/F3_Algoritmos.ipynb`, sin cambiar el código de las secciones de algoritmos | Mantener un notebook de lectura separado | Un solo notebook reúne las decisiones de F3; las variables de lectura llevan el sufijo `_lectura` para no reemplazar las de algoritmos |
 
 La comparación verifica la equivalencia antes de medir y reutiliza las funciones de medición de `F3/medir_algoritmos.py`. Las mediciones están en `F3/mediciones_lectura/`. Se comprobó que las 31 celdas de código trasladadas producen salidas idénticas a las de los notebooks anteriores, que se eliminaron junto con `F3/verificar_lectura.py`. El registro de ejecución del notebook se actualizará al ejecutar `F3/verificar_algoritmos.py`.
+
+## 9. Cierre técnico y compatibilidad — 27 de septiembre de 2026
+
+Las secciones anteriores registran el estado de cada incremento. En la versión
+actual están integrados los aportes de lectura, limpieza, validación y algoritmos.
+El caso `ValidadorDatasetProcesado([])` ya fue corregido por Nayadeth: una lista
+vacía se rechaza y `None` selecciona las reglas predeterminadas.
+
+| ID | Decisión adoptada | Alternativas descartadas | Motivo |
+| --- | --- | --- | --- |
+| D-36 | Convertir las columnas del contrato a una tupla propia y validar sus nombres | Conservar una lista externa dentro de un objeto frozen | Impedir que una modificación externa altere el esquema después de construirlo; congelar atributos no congela una lista almacenada. |
+| D-37 | Ejecutar F1/F2 en copias temporales y comparar resultados sin guardarlos sobre la primera entrega | Reejecutar los verificadores originales sobre los archivos entregados | Comprobar compatibilidad conservando los notebooks, las evidencias y los CSV anteriores. |
+
+El notebook integrado ejecuta 32 celdas y 29 pruebas (ocho algorítmicas, 14 POO y
+siete de lectura). Se actualizó su registro de ejecución. La comparación de F1/F2
+queda en `evidencias/F3_compatibilidad.json`: mismas tablas de proporciones y
+mismos CSV por SHA-256, con exportaciones temporales.
+
+La modificación de `datos.py` exigió regenerar las mediciones de lectura, sin
+alterar las mediciones de algoritmos. La nueva sesión conserva una razón cercana
+a 2,5 entre la mediana del flujo original y la lectura con columnas y tipos.
+Definir tipos tiene una mediana de lectura ligeramente mayor que seleccionar
+solo columnas (353 frente a 347 ms), a cambio de menos memoria. Se actualizó la
+interpretación del notebook para reflejar ese costo.
+
+La revisión contra la guía y los pendientes de entrega están en
+[F3_VALIDACION_ENTREGA.md](F3_VALIDACION_ENTREGA.md). Este cierre no modifica el
+Word ni los resultados de la primera entrega.

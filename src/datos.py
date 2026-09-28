@@ -38,6 +38,13 @@ class ContratoEsquema:
     columnas_requeridas: tuple[str, ...]
 
     def __post_init__(self):
+        # Una copia inmutable evita que una lista externa altere el contrato.
+        if isinstance(self.columnas_requeridas, (str, bytes)):
+            raise TypeError("Las columnas requeridas deben ser una colección de nombres.")
+        columnas = tuple(self.columnas_requeridas)
+        if any(not isinstance(columna, str) or not columna.strip() for columna in columnas):
+            raise ValueError("Cada columna requerida debe ser un nombre de texto no vacío.")
+        object.__setattr__(self, "columnas_requeridas", columnas)
         if not self.columnas_requeridas:
             raise ValueError("El contrato debe declarar al menos una columna requerida.")
         if len(set(self.columnas_requeridas)) != len(self.columnas_requeridas):

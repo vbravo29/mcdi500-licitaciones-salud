@@ -15,6 +15,7 @@ El análisis considera ofertas de procesos adjudicados. Cada fila representa una
 | [medir_algoritmos.py](medir_algoritmos.py) | Comparación de tiempos de ejecución y memoria de los algoritmos. |
 | [medir_lectura.py](medir_lectura.py) | Comparación de tiempos y memoria de tres formas de leer el CSV. |
 | [verificar_algoritmos.py](verificar_algoritmos.py) | Ejecución del notebook en un kernel nuevo y registro del resultado. |
+| [verificar_compatibilidad.py](verificar_compatibilidad.py) | Ejecución temporal de F1/F2 y comparación de sus resultados sin sobrescribirlos. |
 | `fixtures/` | Archivos de ejemplo utilizados en las pruebas de lectura. |
 | `mediciones_lectura/` | Mediciones de lectura: `resumen.csv` y `mediciones.json`. |
 
@@ -79,7 +80,7 @@ En las mediciones guardadas, leer solo las columnas necesarias con tipos hace un
 
 ## Validación y documentación
 
-El notebook contiene 32 celdas de código: 24 de algoritmos y 8 de lectura. La ejecución registrada en `evidencias/F3_algoritmos_ejecucion.json` corresponde a la versión anterior del notebook, sin la sección de lectura (14 pruebas y 24 celdas); se actualiza al ejecutar `verificar_algoritmos.py`. El notebook presenta por separado la preparación de datos, los casos de prueba, las proporciones, los tiempos y la memoria, con las explicaciones correspondientes a cada resultado.
+El notebook contiene 32 celdas de código: 24 de algoritmos y 8 de lectura. La suite integrada ejecuta 29 pruebas: ocho de algoritmos, 14 de POO y siete de lectura. `evidencias/F3_algoritmos_ejecucion.json` registra la ejecución completa en un kernel nuevo y la huella del notebook guardado. El notebook presenta por separado la preparación de datos, los casos de prueba, las proporciones, los tiempos y la memoria, con las explicaciones correspondientes a cada resultado.
 
 - [Decisiones técnicas](../docs/DECISIONES_TECNICAS.md): criterios de implementación y alternativas evaluadas.
 - [Análisis de algoritmos](../docs/F3_APORTE_ALGORITMOS.md): sección técnica preparada para el informe.
@@ -88,6 +89,18 @@ El notebook contiene 32 celdas de código: 24 de algoritmos y 8 de lectura. La e
 
 ## Pendientes
 
-- Corregir el tratamiento de una lista de reglas vacía en `ValidadorDatasetProcesado`: actualmente activa las reglas predeterminadas.
-- Integrar las actualizaciones de validación.
-- Completar el informe grupal y su bibliografía.
+La [revisión contra la guía](../docs/F3_VALIDACION_ENTREGA.md) detalla las
+evidencias y los límites de la validación. Para comprobar la conservación de la
+primera entrega, con los dos CSV de F2 disponibles localmente:
+
+```powershell
+.\.venv\Scripts\python.exe F3\verificar_compatibilidad.py
+```
+
+El resultado queda en `evidencias/F3_compatibilidad.json`. Las exportaciones de
+comprobación se generan en una carpeta temporal y se eliminan al terminar.
+
+- Completar el informe grupal y su bibliografía docente, técnica y académica.
+- Revisar su correspondencia con el notebook y el PDF final.
+- Resolver las identidades históricas de Git señaladas en la revisión.
+- Publicar el cierre revisado en `desarrollo` e integrarlo en `main`.

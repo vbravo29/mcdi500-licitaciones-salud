@@ -1,5 +1,6 @@
 """Pruebas unitarias del primer incremento POO de F3."""
 from pathlib import Path
+from dataclasses import FrozenInstanceError
 import sys
 import unittest
 
@@ -48,6 +49,23 @@ class ReglaSiempreValida(ReglaValidacion):
 
 
 class PruebasNucleoPOO(unittest.TestCase):
+    def test_contrato_conserva_columnas_ante_mutacion_externa(self):
+        columnas = ["id", "valor"]
+        contrato = ContratoEsquema(columnas)
+        columnas.append("otra")
+        self.assertEqual(contrato.columnas_requeridas, ("id", "valor"))
+        contrato.validar(pd.DataFrame({"id": [1], "valor": [2]}))
+        with self.assertRaises(FrozenInstanceError):
+            contrato.columnas_requeridas = ("otra",)
+
+    def test_contrato_rechaza_nombres_invalidos(self):
+        for entrada in ("id", b"id"):
+            with self.subTest(entrada=entrada), self.assertRaises(TypeError):
+                ContratoEsquema(entrada)
+        for entrada in (("",), ("  ",), (42,)):
+            with self.subTest(entrada=entrada), self.assertRaises(ValueError):
+                ContratoEsquema(entrada)
+
     def test_contrato_rechaza_definiciones_invalidas(self):
         with self.assertRaisesRegex(ValueError, "al menos una columna"):
             ContratoEsquema(())
