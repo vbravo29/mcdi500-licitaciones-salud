@@ -1,0 +1,10 @@
+{
+  "fecha_utc": "2026-10-03T03:17:44.635201+00:00",
+  "python": "3.14.7 (tags/v3.14.7:823f032, Aug  5 2026, 10:51:32) [MSC v.1944 64 bit (AMD64)]",
+  "notebook": "F4/F4_Comunicacion.ipynb",
+  "notebook_sha256": "402beb3c42f8a4704b63b165b5d1c27f2605dc43f49d59763544ae56d7ba9fab",
+  "kernel_nuevo": true,
+  "celdas_codigo_ejecutadas": 10,
+  "errores": 0,
+  "alcance": "F4: lectura, limpieza y validación con las clases de F3; tres visualizaciones con interpretación, pruebas de las figuras y exportación a F4/figuras."
+}
